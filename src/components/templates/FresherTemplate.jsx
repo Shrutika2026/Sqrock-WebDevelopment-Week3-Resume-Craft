@@ -4,23 +4,13 @@ import './Templates.css';
 
 export default function FresherTemplate() {
   const { resumeData } = useResume();
-  const { personalInfo, experience, education, skills, projects } = resumeData;
+  const { personalInfo, experience, education, skills, projects, sectionOrder } = resumeData;
+  const orderedSections = sectionOrder || ['experience', 'education', 'projects', 'skills'];
 
-  return (
-    <div className="resume-template fresher-template">
-      <header className="fresher-header">
-        <h1 className="fresher-name">{personalInfo.fullName || 'Your Name'}</h1>
-        <p className="fresher-objective">{personalInfo.summary || 'Career Objective'}</p>
-        <div className="fresher-contact">
-          {personalInfo.email && <span>{personalInfo.email}</span>}
-          {personalInfo.phone && <span> | {personalInfo.phone}</span>}
-          {personalInfo.address && <span> | {personalInfo.address}</span>}
-        </div>
-      </header>
-
-      {/* Education First (highlighted for freshers) */}
-      {education.length > 0 && (
-        <section className="fresher-section">
+  const sectionBlocks = {
+    education:
+      education.length > 0 && (
+        <section key="education" className="fresher-section">
           <h2 className="fresher-section-title">Education</h2>
           <div className="fresher-items">
             {education.map((edu) => (
@@ -37,11 +27,10 @@ export default function FresherTemplate() {
             ))}
           </div>
         </section>
-      )}
-
-      {/* Skills as Tags/Chips */}
-      {skills.length > 0 && (
-        <section className="fresher-section">
+      ),
+    skills:
+      skills.length > 0 && (
+        <section key="skills" className="fresher-section">
           <h2 className="fresher-section-title">Technical Skills</h2>
           <div className="fresher-skills-chips">
             {skills.map((skill) => (
@@ -51,11 +40,10 @@ export default function FresherTemplate() {
             ))}
           </div>
         </section>
-      )}
-
-      {/* Projects Highlighted */}
-      {projects && projects.length > 0 && (
-        <section className="fresher-section">
+      ),
+    projects:
+      projects && projects.length > 0 && (
+        <section key="projects" className="fresher-section">
           <h2 className="fresher-section-title">Projects</h2>
           <div className="fresher-items">
             {projects.map((proj) => (
@@ -74,11 +62,10 @@ export default function FresherTemplate() {
             ))}
           </div>
         </section>
-      )}
-
-      {/* Experience (if any internships) */}
-      {experience.length > 0 && (
-        <section className="fresher-section">
+      ),
+    experience:
+      experience.length > 0 && (
+        <section key="experience" className="fresher-section">
           <h2 className="fresher-section-title">Experience & Internships</h2>
           <div className="fresher-items">
             {experience.map((exp) => (
@@ -95,7 +82,22 @@ export default function FresherTemplate() {
             ))}
           </div>
         </section>
-      )}
+      ),
+  };
+
+  return (
+    <div className="resume-template fresher-template">
+      <header className="fresher-header">
+        <h1 className="fresher-name">{personalInfo.fullName || 'Your Name'}</h1>
+        <p className="fresher-objective">{personalInfo.summary || 'Career Objective'}</p>
+        <div className="fresher-contact">
+          {personalInfo.email && <span>{personalInfo.email}</span>}
+          {personalInfo.phone && <span> | {personalInfo.phone}</span>}
+          {personalInfo.address && <span> | {personalInfo.address}</span>}
+        </div>
+      </header>
+
+      {orderedSections.map((section) => sectionBlocks[section])}
     </div>
   );
 }

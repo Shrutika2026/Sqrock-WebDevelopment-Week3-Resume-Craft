@@ -4,7 +4,42 @@ import './Templates.css';
 
 export default function DesignerTemplate() {
   const { resumeData } = useResume();
-  const { personalInfo, projects, skills } = resumeData;
+  const { personalInfo, projects, skills, sectionOrder } = resumeData;
+  const orderedSections = sectionOrder || ['experience', 'education', 'projects', 'skills'];
+
+  const sectionBlocks = {
+    skills:
+      skills && skills.length > 0 && (
+        <section key="skills" className="designer-section">
+          <h2 className="designer-section-title">Skills & Tools</h2>
+          <div className="designer-skills-grid">
+            {skills.map((s) => (
+              <div key={s.id} className="designer-skill-chip">{s.name}</div>
+            ))}
+          </div>
+        </section>
+      ),
+    projects:
+      projects && projects.length > 0 && (
+        <section key="projects" className="designer-section">
+          <h2 className="designer-section-title">Portfolio</h2>
+          <div className="designer-projects-grid">
+            {projects.map((p) => (
+              <article key={p.id} className="designer-project-card">
+                {p.image && <div className="designer-project-media"><img src={p.image} alt={p.title} /></div>}
+                <div className="designer-project-body">
+                  <h3 className="designer-project-title">{p.title}</h3>
+                  <div className="designer-project-tech">{p.technologies}</div>
+                  <p className="designer-project-desc">{renderDescription(p.description)}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ),
+    experience: null,
+    education: null,
+  };
 
   return (
     <div className="resume-template designer-template">
@@ -24,34 +59,7 @@ export default function DesignerTemplate() {
         )}
       </div>
 
-      {skills && skills.length > 0 && (
-        <section className="designer-section">
-          <h2 className="designer-section-title">Skills & Tools</h2>
-          <div className="designer-skills-grid">
-            {skills.map((s) => (
-              <div key={s.id} className="designer-skill-chip">{s.name}</div>
-            ))}
-          </div>
-        </section>
-      )}
-
-      {projects && projects.length > 0 && (
-        <section className="designer-section">
-          <h2 className="designer-section-title">Portfolio</h2>
-          <div className="designer-projects-grid">
-            {projects.map((p) => (
-              <article key={p.id} className="designer-project-card">
-                {p.image && <div className="designer-project-media"><img src={p.image} alt={p.title} /></div>}
-                <div className="designer-project-body">
-                  <h3 className="designer-project-title">{p.title}</h3>
-                  <div className="designer-project-tech">{p.technologies}</div>
-                  <p className="designer-project-desc">{renderDescription(p.description)}</p>
-                </div>
-              </article>
-            ))}
-          </div>
-        </section>
-      )}
+      {orderedSections.map((section) => sectionBlocks[section])}
     </div>
   );
 }

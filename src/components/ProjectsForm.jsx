@@ -11,6 +11,7 @@ export default function ProjectsForm() {
       title: '',
       technologies: '',
       link: '',
+      liveDemo: '',
       description: '',
     });
   };
@@ -66,13 +67,24 @@ export default function ProjectsForm() {
             </div>
 
             <div className="form-group">
-              <label>Project Link (URL)</label>
+              <label>GitHub Link</label>
               <input
                 type="text"
                 name="link"
                 value={proj.link}
                 onChange={(e) => handleChange(proj.id, e)}
                 placeholder="https://github.com/username/project"
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Live Demo Link</label>
+              <input
+                type="text"
+                name="liveDemo"
+                value={proj.liveDemo}
+                onChange={(e) => handleChange(proj.id, e)}
+                placeholder="https://yourproject.live"
               />
             </div>
 

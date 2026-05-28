@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useLayoutEffect } from 'react';
 import { useReactToPrint } from 'react-to-print';
 import { Download, LayoutTemplate } from 'lucide-react';
 import ModernTemplate from './templates/ModernTemplate';
@@ -32,13 +32,40 @@ export default function ResumePreview() {
     setSelectedTemplate,
   } = useResume();
   const [activeTemplate, setActiveTemplate] = useState(resumeData.selectedTemplate || 'modern');
+  const [scale, setScale] = useState(1);
   const componentRef = useRef();
+  const wrapperRef = useRef();
+  const [fitToOnePage, setFitToOnePage] = useState(true);
 
   useEffect(() => {
     if (resumeData.selectedTemplate && resumeData.selectedTemplate !== activeTemplate) {
       setActiveTemplate(resumeData.selectedTemplate);
     }
   }, [resumeData.selectedTemplate, activeTemplate]);
+
+  useLayoutEffect(() => {
+    if (!componentRef.current || !wrapperRef.current) return;
+
+    const computeScale = () => {
+      const contentHeight = componentRef.current.scrollHeight;
+      const targetHeight = fitToOnePage ? wrapperRef.current.clientHeight : contentHeight;
+      const nextScale = contentHeight > targetHeight ? Math.max(0.55, targetHeight / contentHeight) : 1;
+      setScale(nextScale);
+    };
+
+    const rafId = requestAnimationFrame(computeScale);
+
+    const onResize = () => {
+      requestAnimationFrame(computeScale);
+    };
+
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener('resize', onResize);
+    };
+  }, [activeTemplate, resumeData, fitToOnePage]);
 
   const handlePrint = useReactToPrint({
     contentRef: componentRef,
@@ -481,6 +508,11 @@ export default function ResumePreview() {
           )}
         </div>
 
+        <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+          <input type="checkbox" checked={fitToOnePage} onChange={(e) => setFitToOnePage(e.target.checked)} />
+          <span style={{ fontSize: '0.95rem' }}>One-page fit</span>
+        </label>
+
         <button className="btn btn-primary" onClick={handlePrint}>
           <Download size={18} /> Download PDF
         </button>
@@ -492,7 +524,10 @@ export default function ResumePreview() {
         style={{
           width: '100%',
           maxWidth: '816px', // 8.5 inches at 96 DPI
-          overflowX: 'auto',
+          height: '1056px',
+          overflow: 'hidden',
+          display: 'flex',
+          justifyContent: 'center',
           boxShadow: 'var(--shadow-lg)',
           '--brand-primary': resumeData.accentColor || '#3b82f6', // Inject custom accent color!
           '--brand-secondary': resumeData.brandSecondary || '#60a5fa',
@@ -508,7 +543,8 @@ export default function ResumePreview() {
           '--template-heading': resumeData.headingColor || '#111111',
         }}
       >
-        <div ref={componentRef}>
+        <div ref={wrapperRef} style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+          <div ref={componentRef} style={{ transform: `scale(${scale})`, transformOrigin: 'top center', transition: 'transform 180ms ease', width: '100%' }}>
           {activeTemplate === 'modern' && <ModernTemplate />}
           {activeTemplate === 'classic' && <ClassicTemplate />}
           {activeTemplate === 'ats' && <ATSTemplate />}
@@ -520,6 +556,7 @@ export default function ResumePreview() {
           {activeTemplate === 'minimal' && <MinimalTemplate />}
           {activeTemplate === 'fresher' && <FresherTemplate />}
           {activeTemplate === 'executive' && <ExecutiveTemplate />}
+          </div>
         </div>
       </div>
 

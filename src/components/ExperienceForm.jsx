@@ -1,9 +1,9 @@
 import { useResume } from '../context/ResumeContext';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, ArrowUp, ArrowDown } from 'lucide-react';
 import './FormStyles.css';
 
 export default function ExperienceForm() {
-  const { resumeData, addExperience, updateExperience, removeExperience } = useResume();
+  const { resumeData, addExperience, updateExperience, removeExperience, reorderSection } = useResume();
   const { experience } = resumeData;
 
   const handleAdd = () => {
@@ -13,12 +13,23 @@ export default function ExperienceForm() {
       startDate: '',
       endDate: '',
       description: '',
+      responsibilities: '',
+      achievements: '',
     });
   };
 
   const handleChange = (id, e) => {
     const { name, value } = e.target;
     updateExperience(id, { [name]: value });
+  };
+
+  const moveExperience = (index, direction) => {
+    const nextIndex = direction === 'up' ? index - 1 : index + 1;
+    if (nextIndex < 0 || nextIndex >= experience.length) return;
+    const newOrder = [...experience];
+    const [moved] = newOrder.splice(index, 1);
+    newOrder.splice(nextIndex, 0, moved);
+    reorderSection('experience', newOrder);
   };
 
   return (
@@ -30,17 +41,38 @@ export default function ExperienceForm() {
         </button>
       </h3>
 
-      {experience.map((exp) => (
+      {experience.map((exp, index) => (
         <div key={exp.id} className="dynamic-item">
           <div className="dynamic-item-header">
             <h4>{exp.company || 'New Experience'}</h4>
-            <button 
-              className="btn-danger" 
-              onClick={() => removeExperience(exp.id)}
-              aria-label="Remove Experience"
-            >
-              <Trash2 size={18} />
-            </button>
+            <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+              <button
+                className="btn btn-outline"
+                type="button"
+                onClick={() => moveExperience(index, 'up')}
+                aria-label="Move experience up"
+                disabled={index === 0}
+              >
+                <ArrowUp size={16} />
+              </button>
+              <button
+                className="btn btn-outline"
+                type="button"
+                onClick={() => moveExperience(index, 'down')}
+                aria-label="Move experience down"
+                disabled={index === experience.length - 1}
+              >
+                <ArrowDown size={16} />
+              </button>
+              <button
+                className="btn-danger"
+                type="button"
+                onClick={() => removeExperience(exp.id)}
+                aria-label="Remove Experience"
+              >
+                <Trash2 size={18} />
+              </button>
+            </div>
           </div>
 
           <div className="form-grid">
@@ -92,7 +124,29 @@ export default function ExperienceForm() {
                 name="description"
                 value={exp.description}
                 onChange={(e) => handleChange(exp.id, e)}
-                placeholder="Describe your responsibilities and achievements..."
+                placeholder="Describe the role overview..."
+                rows="3"
+              />
+            </div>
+
+            <div className="form-group full-width">
+              <label>Responsibilities</label>
+              <textarea
+                name="responsibilities"
+                value={exp.responsibilities}
+                onChange={(e) => handleChange(exp.id, e)}
+                placeholder="List your responsibilities in this role..."
+                rows="3"
+              />
+            </div>
+
+            <div className="form-group full-width">
+              <label>Achievements</label>
+              <textarea
+                name="achievements"
+                value={exp.achievements}
+                onChange={(e) => handleChange(exp.id, e)}
+                placeholder="Key achievements or results from this role..."
                 rows="3"
               />
             </div>

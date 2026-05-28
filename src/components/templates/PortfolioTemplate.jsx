@@ -4,24 +4,13 @@ import './Templates.css';
 
 export default function PortfolioTemplate() {
   const { resumeData } = useResume();
-  const { personalInfo, projects, skills } = resumeData;
+  const { personalInfo, projects, skills, sectionOrder } = resumeData;
+  const orderedSections = sectionOrder || ['experience', 'education', 'projects', 'skills'];
 
-  return (
-    <div className="resume-template portfolio-template">
-      <header className="portfolio-header">
-        <div className="portfolio-intro">
-          <h1 className="portfolio-name">{personalInfo.fullName || 'Your Name'}</h1>
-          {personalInfo.summary && <p className="portfolio-summary">{personalInfo.summary}</p>}
-        </div>
-        {personalInfo.profileImage && (
-          <div className="portfolio-image">
-            <img src={personalInfo.profileImage} alt={personalInfo.fullName} />
-          </div>
-        )}
-      </header>
-
-      {projects && projects.length > 0 && (
-        <section className="portfolio-section">
+  const sectionBlocks = {
+    projects:
+      projects && projects.length > 0 && (
+        <section key="projects" className="portfolio-section">
           <h2 className="portfolio-section-title">Selected Projects</h2>
           <div className="portfolio-projects-grid">
             {projects.map((p) => (
@@ -40,10 +29,10 @@ export default function PortfolioTemplate() {
             ))}
           </div>
         </section>
-      )}
-
-      {skills && skills.length > 0 && (
-        <section className="portfolio-section">
+      ),
+    skills:
+      skills && skills.length > 0 && (
+        <section key="skills" className="portfolio-section">
           <h2 className="portfolio-section-title">Skills</h2>
           <div className="portfolio-skills-grid">
             {skills.map((s) => (
@@ -51,7 +40,26 @@ export default function PortfolioTemplate() {
             ))}
           </div>
         </section>
-      )}
+      ),
+    experience: null,
+    education: null,
+  };
+
+  return (
+    <div className="resume-template portfolio-template">
+      <header className="portfolio-header">
+        <div className="portfolio-intro">
+          <h1 className="portfolio-name">{personalInfo.fullName || 'Your Name'}</h1>
+          {personalInfo.summary && <p className="portfolio-summary">{personalInfo.summary}</p>}
+        </div>
+        {personalInfo.profileImage && (
+          <div className="portfolio-image">
+            <img src={personalInfo.profileImage} alt={personalInfo.fullName} />
+          </div>
+        )}
+      </header>
+
+      {orderedSections.map((section) => sectionBlocks[section])}
     </div>
   );
 }

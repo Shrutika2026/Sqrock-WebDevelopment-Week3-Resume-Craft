@@ -3,12 +3,49 @@
   background-color: var(--template-bg, white);
   color: var(--template-text, black);
   width: 100%;
-  min-height: 1056px; /* Approx 11 inches */
-  padding: 3rem;
+  min-height: auto;
+  padding: 2rem;
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.08);
   margin: 0 auto;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.resume-template *,
+.resume-template *::before,
+.resume-template *::after {
+  box-sizing: inherit;
+}
+
+.resume-template h1,
+.resume-template h2,
+.resume-template h3,
+.resume-template h4 {
+  margin: 0 0 0.6rem 0;
+}
+
+.resume-template p,
+.resume-template li,
+.resume-template span {
+  margin: 0 0 0.45rem 0;
+}
+
+.resume-template .section,
+.resume-template .resume-section,
+.resume-template .item,
+.resume-template .modern-section,
+.resume-template .classic-section,
+.resume-template .ats-section,
+.resume-template .sidebar-section,
+.resume-template .portfolio-section,
+.resume-template .minimal-section,
+.resume-template .onecolumn-section,
+.resume-template .designer-section,
+.resume-template .fresher-section,
+.resume-template .executive-section {
+  margin-bottom: 1rem;
 }
 
 /* =========================================
@@ -142,12 +179,42 @@
 }
 
 .modern-skill-tag {
-  background-color: var(--brand-secondary, #f1f5f9);
+  background-color: var(--brand-secondary, #1d4ed8);
   color: white;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
   font-size: 0.85rem;
   font-weight: 500;
+}
+
+.modern-item-small {
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--border-color, #d1d5db);
+  border-radius: 0.75rem;
+  background-color: var(--bg-primary, #ffffff);
+}
+
+.modern-skill-progress-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.modern-skill-progress-row {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.modern-progress-bar {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background-color: var(--border-color, #e5e7eb);
+  overflow: hidden;
+}
+
+.modern-progress-fill {
+  height: 100%;
+  background-color: var(--brand-secondary, #1d4ed8);
 }
 
 /* =========================================

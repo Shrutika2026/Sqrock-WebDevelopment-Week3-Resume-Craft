@@ -97,6 +97,42 @@ export default function PersonalInfoForm() {
             placeholder="New York, NY"
           />
         </div>
+
+        <div className="form-group">
+          <label htmlFor="linkedin">LinkedIn</label>
+          <input
+            type="text"
+            id="linkedin"
+            name="linkedin"
+            value={personalInfo.linkedin}
+            onChange={handleChange}
+            placeholder="https://linkedin.com/in/username"
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="github">GitHub</label>
+          <input
+            type="text"
+            id="github"
+            name="github"
+            value={personalInfo.github}
+            onChange={handleChange}
+            placeholder="https://github.com/username"
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="website">Portfolio Website</label>
+          <input
+            type="text"
+            id="website"
+            name="website"
+            value={personalInfo.website}
+            onChange={handleChange}
+            placeholder="https://yourportfolio.com"
+          />
+        </div>
       </div>
 
       <div className="form-group full-width">
@@ -108,6 +144,42 @@ export default function PersonalInfoForm() {
           onChange={handleChange}
           placeholder="A brief summary of your professional background and goals..."
           rows="4"
+        />
+      </div>
+
+      <div className="form-group full-width">
+        <label htmlFor="introduction">Short Introduction</label>
+        <textarea
+          id="introduction"
+          name="introduction"
+          value={personalInfo.introduction}
+          onChange={handleChange}
+          placeholder="Introduce yourself in 1–2 sentences..."
+          rows="2"
+        />
+      </div>
+
+      <div className="form-group full-width">
+        <label htmlFor="careerObjective">Career Objective</label>
+        <textarea
+          id="careerObjective"
+          name="careerObjective"
+          value={personalInfo.careerObjective}
+          onChange={handleChange}
+          placeholder="Describe your career goals and the impact you want to make..."
+          rows="2"
+        />
+      </div>
+
+      <div className="form-group full-width">
+        <label htmlFor="experienceSummary">Experience Summary</label>
+        <textarea
+          id="experienceSummary"
+          name="experienceSummary"
+          value={personalInfo.experienceSummary}
+          onChange={handleChange}
+          placeholder="Summarize your work experience and achievements..."
+          rows="2"
         />
       </div>
     </div>

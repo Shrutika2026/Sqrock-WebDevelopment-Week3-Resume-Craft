@@ -10,11 +10,31 @@ const defaultResumeData = {
     summary: '',
     profileImage: '',
     siteLogo: '',
+    linkedin: '',
+    github: '',
+    website: '',
+    careerObjective: '',
+    introduction: '',
+    experienceSummary: '',
   },
   experience: [],
+  internships: [],
   education: [],
+  projects: [],
   skills: [],
-  projects: [], // Adding this in advance for Step 2
+  technicalSkills: [],
+  softSkills: [],
+  skillProgress: [],
+  languages: [],
+  certifications: [],
+  achievements: [],
+  awards: [],
+  hackathons: [],
+  competitions: [],
+  scholarships: [],
+  publications: [],
+  interests: [],
+  references: [],
   accentColor: '#3b82f6',
   brandSecondary: '#60a5fa',
   accentLineColor: '#d1d5db',
@@ -28,6 +48,26 @@ const defaultResumeData = {
   textColor: '#222222',
   backgroundColor: '#ffffff',
   selectedTemplate: 'modern',
+  sectionOrder: [
+    'skills',
+    'technicalSkills',
+    'softSkills',
+    'languages',
+    'skillProgress',
+    'education',
+    'experience',
+    'internships',
+    'projects',
+    'certifications',
+    'achievements',
+    'awards',
+    'hackathons',
+    'competitions',
+    'scholarships',
+    'publications',
+    'interests',
+    'references',
+  ],
 };
 
 const ResumeContext = createContext();
@@ -164,7 +204,301 @@ export const ResumeProvider = ({ children }) => {
       projects: prev.projects.filter((proj) => proj.id !== id),
     }));
   };
-  
+
+  const addCertification = (certification) => {
+    setResumeData((prev) => ({
+      ...prev,
+      certifications: [...prev.certifications, { ...certification, id: crypto.randomUUID() }],
+    }));
+  };
+
+  const updateCertification = (id, updatedCertification) => {
+    setResumeData((prev) => ({
+      ...prev,
+      certifications: prev.certifications.map((cert) => (cert.id === id ? { ...cert, ...updatedCertification } : cert)),
+    }));
+  };
+
+  const removeCertification = (id) => {
+    setResumeData((prev) => ({
+      ...prev,
+      certifications: prev.certifications.filter((cert) => cert.id !== id),
+    }));
+  };
+
+  const addAchievement = (achievement) => {
+    setResumeData((prev) => ({
+      ...prev,
+      achievements: [...prev.achievements, { ...achievement, id: crypto.randomUUID() }],
+    }));
+  };
+
+  const updateAchievement = (id, updatedAchievement) => {
+    setResumeData((prev) => ({
+      ...prev,
+      achievements: prev.achievements.map((item) => (item.id === id ? { ...item, ...updatedAchievement } : item)),
+    }));
+  };
+
+  const removeAchievement = (id) => {
+    setResumeData((prev) => ({
+      ...prev,
+      achievements: prev.achievements.filter((item) => item.id !== id),
+    }));
+  };
+
+  const addAward = (award) => {
+    setResumeData((prev) => ({
+      ...prev,
+      awards: [...prev.awards, { ...award, id: crypto.randomUUID() }],
+    }));
+  };
+
+  const updateAward = (id, updatedAward) => {
+    setResumeData((prev) => ({
+      ...prev,
+      awards: prev.awards.map((item) => (item.id === id ? { ...item, ...updatedAward } : item)),
+    }));
+  };
+
+  const removeAward = (id) => {
+    setResumeData((prev) => ({
+      ...prev,
+      awards: prev.awards.filter((item) => item.id !== id),
+    }));
+  };
+
+  const addHackathon = (hackathon) => {
+    setResumeData((prev) => ({
+      ...prev,
+      hackathons: [...prev.hackathons, { ...hackathon, id: crypto.randomUUID() }],
+    }));
+  };
+
+  const updateHackathon = (id, updatedHackathon) => {
+    setResumeData((prev) => ({
+      ...prev,
+      hackathons: prev.hackathons.map((item) => (item.id === id ? { ...item, ...updatedHackathon } : item)),
+    }));
+  };
+
+  const removeHackathon = (id) => {
+    setResumeData((prev) => ({
+      ...prev,
+      hackathons: prev.hackathons.filter((item) => item.id !== id),
+    }));
+  };
+
+  const addCompetition = (competition) => {
+    setResumeData((prev) => ({
+      ...prev,
+      competitions: [...prev.competitions, { ...competition, id: crypto.randomUUID() }],
+    }));
+  };
+
+  const updateCompetition = (id, updatedCompetition) => {
+    setResumeData((prev) => ({
+      ...prev,
+      competitions: prev.competitions.map((item) => (item.id === id ? { ...item, ...updatedCompetition } : item)),
+    }));
+  };
+
+  const removeCompetition = (id) => {
+    setResumeData((prev) => ({
+      ...prev,
+      competitions: prev.competitions.filter((item) => item.id !== id),
+    }));
+  };
+
+  const addScholarship = (scholarship) => {
+    setResumeData((prev) => ({
+      ...prev,
+      scholarships: [...prev.scholarships, { ...scholarship, id: crypto.randomUUID() }],
+    }));
+  };
+
+  const updateScholarship = (id, updatedScholarship) => {
+    setResumeData((prev) => ({
+      ...prev,
+      scholarships: prev.scholarships.map((item) => (item.id === id ? { ...item, ...updatedScholarship } : item)),
+    }));
+  };
+
+  const removeScholarship = (id) => {
+    setResumeData((prev) => ({
+      ...prev,
+      scholarships: prev.scholarships.filter((item) => item.id !== id),
+    }));
+  };
+
+  const addInternship = (internship) => {
+    setResumeData((prev) => ({
+      ...prev,
+      internships: [...prev.internships, { ...internship, id: crypto.randomUUID() }],
+    }));
+  };
+
+  const updateInternship = (id, updatedInternship) => {
+    setResumeData((prev) => ({
+      ...prev,
+      internships: prev.internships.map((item) => (item.id === id ? { ...item, ...updatedInternship } : item)),
+    }));
+  };
+
+  const removeInternship = (id) => {
+    setResumeData((prev) => ({
+      ...prev,
+      internships: prev.internships.filter((item) => item.id !== id),
+    }));
+  };
+
+  const addPublication = (publication) => {
+    setResumeData((prev) => ({
+      ...prev,
+      publications: [...prev.publications, { ...publication, id: crypto.randomUUID() }],
+    }));
+  };
+
+  const updatePublication = (id, updatedPublication) => {
+    setResumeData((prev) => ({
+      ...prev,
+      publications: prev.publications.map((item) => (item.id === id ? { ...item, ...updatedPublication } : item)),
+    }));
+  };
+
+  const removePublication = (id) => {
+    setResumeData((prev) => ({
+      ...prev,
+      publications: prev.publications.filter((item) => item.id !== id),
+    }));
+  };
+
+  const addInterest = (interest) => {
+    setResumeData((prev) => ({
+      ...prev,
+      interests: [...prev.interests, { ...interest, id: crypto.randomUUID() }],
+    }));
+  };
+
+  const updateInterest = (id, updatedInterest) => {
+    setResumeData((prev) => ({
+      ...prev,
+      interests: prev.interests.map((item) => (item.id === id ? { ...item, ...updatedInterest } : item)),
+    }));
+  };
+
+  const removeInterest = (id) => {
+    setResumeData((prev) => ({
+      ...prev,
+      interests: prev.interests.filter((item) => item.id !== id),
+    }));
+  };
+
+  const addReference = (reference) => {
+    setResumeData((prev) => ({
+      ...prev,
+      references: [...prev.references, { ...reference, id: crypto.randomUUID() }],
+    }));
+  };
+
+  const updateReference = (id, updatedReference) => {
+    setResumeData((prev) => ({
+      ...prev,
+      references: prev.references.map((item) => (item.id === id ? { ...item, ...updatedReference } : item)),
+    }));
+  };
+
+  const removeReference = (id) => {
+    setResumeData((prev) => ({
+      ...prev,
+      references: prev.references.filter((item) => item.id !== id),
+    }));
+  };
+
+  const addLanguage = (language) => {
+    setResumeData((prev) => ({
+      ...prev,
+      languages: [...prev.languages, { ...language, id: crypto.randomUUID() }],
+    }));
+  };
+
+  const updateLanguage = (id, updatedLanguage) => {
+    setResumeData((prev) => ({
+      ...prev,
+      languages: prev.languages.map((item) => (item.id === id ? { ...item, ...updatedLanguage } : item)),
+    }));
+  };
+
+  const removeLanguage = (id) => {
+    setResumeData((prev) => ({
+      ...prev,
+      languages: prev.languages.filter((item) => item.id !== id),
+    }));
+  };
+
+  const addTechnicalSkill = (skill) => {
+    setResumeData((prev) => ({
+      ...prev,
+      technicalSkills: [...prev.technicalSkills, { ...skill, id: crypto.randomUUID() }],
+    }));
+  };
+
+  const updateTechnicalSkill = (id, updatedSkill) => {
+    setResumeData((prev) => ({
+      ...prev,
+      technicalSkills: prev.technicalSkills.map((item) => (item.id === id ? { ...item, ...updatedSkill } : item)),
+    }));
+  };
+
+  const removeTechnicalSkill = (id) => {
+    setResumeData((prev) => ({
+      ...prev,
+      technicalSkills: prev.technicalSkills.filter((item) => item.id !== id),
+    }));
+  };
+
+  const addSoftSkill = (skill) => {
+    setResumeData((prev) => ({
+      ...prev,
+      softSkills: [...prev.softSkills, { ...skill, id: crypto.randomUUID() }],
+    }));
+  };
+
+  const updateSoftSkill = (id, updatedSkill) => {
+    setResumeData((prev) => ({
+      ...prev,
+      softSkills: prev.softSkills.map((item) => (item.id === id ? { ...item, ...updatedSkill } : item)),
+    }));
+  };
+
+  const removeSoftSkill = (id) => {
+    setResumeData((prev) => ({
+      ...prev,
+      softSkills: prev.softSkills.filter((item) => item.id !== id),
+    }));
+  };
+
+  const addSkillProgress = (progress) => {
+    setResumeData((prev) => ({
+      ...prev,
+      skillProgress: [...prev.skillProgress, { ...progress, id: crypto.randomUUID() }],
+    }));
+  };
+
+  const updateSkillProgress = (id, updatedProgress) => {
+    setResumeData((prev) => ({
+      ...prev,
+      skillProgress: prev.skillProgress.map((item) => (item.id === id ? { ...item, ...updatedProgress } : item)),
+    }));
+  };
+
+  const removeSkillProgress = (id) => {
+    setResumeData((prev) => ({
+      ...prev,
+      skillProgress: prev.skillProgress.filter((item) => item.id !== id),
+    }));
+  };
+
   const reorderSection = (section, newOrder) => {
     setResumeData(prev => ({
         ...prev,
@@ -263,6 +597,13 @@ export const ResumeProvider = ({ children }) => {
     }));
   };
 
+  const setSectionOrder = (newOrder) => {
+    setResumeData((prev) => ({
+      ...prev,
+      sectionOrder: newOrder,
+    }));
+  };
+
   const resetSavedData = () => {
     if (typeof window !== 'undefined') {
       localStorage.removeItem(STORAGE_KEY);
@@ -282,6 +623,60 @@ export const ResumeProvider = ({ children }) => {
     removeEducation,
     addSkill,
     removeSkill,
+    addProject,
+    updateProject,
+    removeProject,
+    addCertification,
+    updateCertification,
+    removeCertification,
+    addAchievement,
+    updateAchievement,
+    removeAchievement,
+    addAward,
+    updateAward,
+    removeAward,
+    addHackathon,
+    updateHackathon,
+    removeHackathon,
+    addCompetition,
+    updateCompetition,
+    removeCompetition,
+    addScholarship,
+    updateScholarship,
+    removeScholarship,
+    addInternship,
+    updateInternship,
+    removeInternship,
+    addPublication,
+    updatePublication,
+    removePublication,
+    addInterest,
+    updateInterest,
+    removeInterest,
+    addReference,
+    updateReference,
+    removeReference,
+    addLanguage,
+    updateLanguage,
+    removeLanguage,
+    addTechnicalSkill,
+    updateTechnicalSkill,
+    removeTechnicalSkill,
+    addSoftSkill,
+    updateSoftSkill,
+    removeSoftSkill,
+    addSkillProgress,
+    updateSkillProgress,
+    removeSkillProgress,
+    addInterest,
+    updateInterest,
+    removeInterest,
+    addReference,
+    updateReference,
+    removeReference,
+    addLanguage,
+    updateLanguage,
+    removeLanguage,
     reorderSection,
     setAccentColor,
     setBrandSecondary,
@@ -294,9 +689,7 @@ export const ResumeProvider = ({ children }) => {
     setTextColor,
     setBackgroundColor,
     setSelectedTemplate,
-    addProject,
-    updateProject,
-    removeProject,
+    setSectionOrder,
     resetSavedData,
     setSidebarBgColor,
     setSidebarTextColor,
