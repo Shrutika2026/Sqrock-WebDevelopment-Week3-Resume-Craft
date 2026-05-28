@@ -27,6 +27,7 @@ const defaultResumeData = {
   headingColor: '#111827',
   textColor: '#222222',
   backgroundColor: '#ffffff',
+  selectedTemplate: 'modern',
 };
 
 const ResumeContext = createContext();
@@ -255,9 +256,16 @@ export const ResumeProvider = ({ children }) => {
     }));
   };
 
+  const setSelectedTemplate = (template) => {
+    setResumeData(prev => ({
+      ...prev,
+      selectedTemplate: template,
+    }));
+  };
+
   const resetSavedData = () => {
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('resumeData');
+      localStorage.removeItem(STORAGE_KEY);
     }
     setResumeData(defaultResumeData);
   };
@@ -285,6 +293,7 @@ export const ResumeProvider = ({ children }) => {
     setHeadingColor,
     setTextColor,
     setBackgroundColor,
+    setSelectedTemplate,
     addProject,
     updateProject,
     removeProject,

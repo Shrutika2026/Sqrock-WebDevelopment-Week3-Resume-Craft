@@ -29,9 +29,16 @@ export default function ResumePreview() {
     setHeadingColor,
     setTextColor,
     setBackgroundColor,
+    setSelectedTemplate,
   } = useResume();
-  const [activeTemplate, setActiveTemplate] = useState('modern');
+  const [activeTemplate, setActiveTemplate] = useState(resumeData.selectedTemplate || 'modern');
   const componentRef = useRef();
+
+  useEffect(() => {
+    if (resumeData.selectedTemplate && resumeData.selectedTemplate !== activeTemplate) {
+      setActiveTemplate(resumeData.selectedTemplate);
+    }
+  }, [resumeData.selectedTemplate, activeTemplate]);
 
   const handlePrint = useReactToPrint({
     contentRef: componentRef,
@@ -195,6 +202,7 @@ export default function ResumePreview() {
 
   const handleTemplateChange = (template) => {
     setActiveTemplate(template);
+    setSelectedTemplate(template);
     applyTemplateDefaults(template);
   };
 
