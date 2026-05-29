@@ -12,13 +12,10 @@ export default function SkillsForm() {
     removeTechnicalSkill,
     addSoftSkill,
     removeSoftSkill,
-    addSkillProgress,
-    updateSkillProgress,
-    removeSkillProgress,
     reorderSection,
   } = useResume();
 
-  const { skills, technicalSkills, softSkills, skillProgress } = resumeData;
+  const { skills, technicalSkills, softSkills } = resumeData;
 
   const [newSkill, setNewSkill] = useState('');
   const [newTechnicalSkill, setNewTechnicalSkill] = useState('');
@@ -211,57 +208,6 @@ export default function SkillsForm() {
         ))}
       </div>
 
-      <div className="divider" />
-
-      <div className="form-group full-width">
-        <label>Skill Progress Bars</label>
-        {skillProgress.map((progress) => (
-          <div key={progress.id} className="dynamic-item" style={{ padding: '1rem', marginBottom: '0.75rem' }}>
-            <div className="dynamic-item-header">
-              <h4>{progress.name || 'Progress Item'}</h4>
-              <button
-                className="btn-danger"
-                type="button"
-                onClick={() => removeSkillProgress(progress.id)}
-                aria-label="Remove Skill Progress"
-              >
-                <X size={18} />
-              </button>
-            </div>
-            <div className="form-grid">
-              <div className="form-group">
-                <label>Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  value={progress.name}
-                  onChange={(e) => updateSkillProgress(progress.id, { [e.target.name]: e.target.value })}
-                  placeholder="Skill or tool"
-                />
-              </div>
-              <div className="form-group">
-                <label>Proficiency</label>
-                <input
-                  type="range"
-                  name="level"
-                  value={progress.level || 50}
-                  onChange={(e) => updateSkillProgress(progress.id, { [e.target.name]: Number(e.target.value) })}
-                  min="0"
-                  max="100"
-                />
-                <span>{progress.level || 50}%</span>
-              </div>
-            </div>
-          </div>
-        ))}
-        <button
-          className="btn btn-primary"
-          type="button"
-          onClick={() => addSkillProgress({ name: '', level: 50 })}
-        >
-          <Plus size={16} /> Add Progress Bar
-        </button>
-      </div>
     </div>
   );
 }

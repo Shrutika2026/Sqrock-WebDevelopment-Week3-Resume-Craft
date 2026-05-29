@@ -1,18 +1,22 @@
 export function renderDescription(text) {
   if (!text) return null;
-  
-  // If the text contains newlines, render as bullet points
+  // Preserve paragraphs and single-line breaks.
+  // Split into paragraphs on double-newline, and within each paragraph convert single newlines to <br />.
   if (text.includes('\n')) {
-    const points = text.split('\n').filter(line => line.trim() !== '');
+    const paragraphs = text.split(/\n\s*\n/).map(p => p.trim()).filter(p => p !== '');
     return (
-      <ul style={{ margin: '0.25rem 0 0 1rem', padding: 0 }}>
-        {points.map((point, i) => (
-          <li key={i} style={{ marginBottom: '0.1rem' }}>{point}</li>
+      <>
+        {paragraphs.map((para, idx) => (
+          <p key={idx} style={{ margin: '0.25rem 0 0 0' }}>
+            {para.split('\n').map((line, i) => (
+              // insert <br/> between manual line breaks
+              <span key={i}>{line}{i < para.split('\n').length - 1 ? <br /> : null}</span>
+            ))}
+          </p>
         ))}
-      </ul>
+      </>
     );
   }
-  
-  // Otherwise just return the paragraph
+
   return <p>{text}</p>;
 }

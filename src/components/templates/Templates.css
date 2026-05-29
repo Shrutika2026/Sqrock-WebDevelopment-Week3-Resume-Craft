@@ -1,16 +1,31 @@
-/* Common Print Styles */
+/* Common Print Styles - Multi-Page Support */
 .resume-template {
   background-color: var(--template-bg, white);
   color: var(--template-text, black);
   width: 100%;
+  max-width: 8.5in;
+  height: auto;
   min-height: auto;
-  padding: 2rem;
+  padding: 0.6rem;
   box-sizing: border-box;
   font-family: 'Inter', sans-serif;
   box-shadow: 0 4px 6px rgba(0,0,0,0.08);
   margin: 0 auto;
-  font-size: 0.95rem;
-  line-height: 1.45;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  overflow: visible;
+}
+
+.resume-template p,
+.resume-template ul,
+.resume-template li,
+.resume-template span,
+.resume-template a,
+.resume-template div {
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .resume-template *,
@@ -23,13 +38,15 @@
 .resume-template h2,
 .resume-template h3,
 .resume-template h4 {
-  margin: 0 0 0.6rem 0;
+  margin: 0 0 0.35rem 0;
+  font-size: 1rem;
+  line-height: 1.2;
 }
 
 .resume-template p,
 .resume-template li,
 .resume-template span {
-  margin: 0 0 0.45rem 0;
+  margin: 0 0 0.25rem 0;
 }
 
 .resume-template .section,
@@ -45,7 +62,7 @@
 .resume-template .designer-section,
 .resume-template .fresher-section,
 .resume-template .executive-section {
-  margin-bottom: 1rem;
+  margin-bottom: 0.6rem;
 }
 
 /* =========================================
@@ -59,19 +76,19 @@
 .modern-header {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  border-bottom: 3px solid var(--accent-line, var(--brand-primary, #3b82f6));
-  padding-bottom: 1.5rem;
-  margin-bottom: 1.5rem;
+  gap: 1rem;
+  border-bottom: 2px solid var(--accent-line, var(--brand-primary, #3b82f6));
+  padding-bottom: 0.8rem;
+  margin-bottom: 0.8rem;
 }
 
 .modern-profile-image {
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
   border-radius: 50%;
   overflow: hidden;
   flex-shrink: 0;
-  border: 3px solid var(--brand-primary, #3b82f6);
+  border: 2px solid var(--brand-primary, #3b82f6);
 }
 
 .modern-profile-image img {
@@ -85,9 +102,9 @@
 }
 
 .modern-name {
-  font-size: 2.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 0.25rem 0;
   color: var(--template-heading, #111);
   text-transform: uppercase;
   letter-spacing: -0.5px;
@@ -96,8 +113,8 @@
 .modern-contact-info {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  font-size: 0.9rem;
+  gap: 0.7rem;
+  font-size: 0.75rem;
   color: var(--template-text, #555);
 }
 
@@ -107,109 +124,220 @@
 }
 
 .modern-section {
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.8rem;
 }
 
 .modern-section-title {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 0.95rem;
+  font-weight: 700;
   color: var(--brand-primary, #3b82f6);
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.5rem 0;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid var(--border-color, #e5e7eb);
+  padding-bottom: 0.3rem;
 }
 
 .modern-summary-text {
-  font-size: 0.95rem;
-  line-height: 1.6;
+  font-size: 0.75rem;
+  line-height: 1.5;
   color: var(--template-text, #444);
 }
 
 .modern-two-column {
   display: grid;
   grid-template-columns: 2fr 1fr;
-  gap: 2rem;
+  gap: 1.2rem;
 }
 
 .modern-item {
-  margin-bottom: 1.25rem;
-  background-color: var(--card-highlight, #f1f5f9);
-  padding: 1rem;
-  border-radius: 0.75rem;
+  margin-bottom: 0.65rem;
+  background-color: var(--card-highlight, #f9f9f9);
+  padding: 0.6rem;
+  border-radius: 4px;
+  border-left: 2px solid var(--brand-primary, #3b82f6);
+  break-inside: avoid-column;
+  page-break-inside: avoid;
+}
+
+.modern-item:hover {
+  background-color: var(--card-highlight-hover, #f0f4ff);
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.1);
 }
 
 .modern-item-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.15rem;
+  gap: 0.5rem;
 }
 
 .modern-item-title {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 0.85rem;
+  font-weight: 700;
   margin: 0;
   color: var(--template-heading, #222);
 }
 
 .modern-item-subtitle {
-  font-size: 0.95rem;
-  font-weight: 500;
+  font-size: 0.75rem;
+  font-weight: 600;
   color: var(--brand-secondary, #555);
 }
 
 .modern-item-date {
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   color: var(--template-text, #777);
   font-style: italic;
+  white-space: nowrap;
 }
 
 .modern-item-desc {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  margin-top: 0.5rem;
+  font-size: 0.73rem;
+  line-height: 1.35;
+  margin-top: 0.25rem;
   color: var(--template-text, #444);
+  display: block;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.modern-item-desc p {
+  margin: 0.15rem 0;
+  line-height: 1.35;
+}
+
+.modern-item-desc ul,
+.modern-item-desc ol {
+  margin: 0.2rem 0 0.2rem 1rem;
+  padding: 0;
+}
+
+.modern-item-desc li {
+  margin: 0.1rem 0;
+  line-height: 1.35;
 }
 
 .modern-skills-grid {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.5rem;
+  gap: 0.3rem;
+  margin-top: 0.3rem;
 }
 
 .modern-skill-tag {
   background-color: var(--brand-secondary, #1d4ed8);
   color: white;
-  padding: 0.25rem 0.65rem;
+  padding: 0.15rem 0.45rem;
   border-radius: 999px;
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   font-weight: 500;
 }
 
 .modern-item-small {
-  padding: 0.85rem 1rem;
+  padding: 0.5rem 0.75rem;
   border: 1px solid var(--border-color, #d1d5db);
-  border-radius: 0.75rem;
+  border-radius: 4px;
   background-color: var(--bg-primary, #ffffff);
+  margin-bottom: 0.35rem;
 }
 
 .modern-skill-progress-list {
   display: grid;
-  gap: 0.75rem;
+  gap: 0.5rem;
 }
 
 .modern-skill-progress-row {
   display: grid;
-  gap: 0.5rem;
+  gap: 0.3rem;
 }
 
 .modern-progress-bar {
   width: 100%;
-  height: 10px;
+  height: 6px;
   border-radius: 999px;
   background-color: var(--border-color, #e5e7eb);
   overflow: hidden;
+}
+
+.resume-page-backgrounds {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  padding-top: 24px;
+}
+
+.resume-page-background {
+  width: 816px;
+  min-height: 1056px;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+  border-radius: 12px;
+}
+
+.resume-preview-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+}
+
+@media print {
+  .resume-wrapper {
+    overflow: visible !important;
+    box-shadow: none !important;
+  }
+
+  .resume-page-backgrounds {
+    display: none !important;
+  }
+
+  .resume-template {
+    box-shadow: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    page-break-inside: avoid;
+    break-inside: avoid-column;
+  }
+
+  .resume-template .section,
+  .resume-template .resume-section,
+  .resume-template .item,
+  .resume-template .modern-section,
+  .resume-template .classic-section,
+  .resume-template .ats-section,
+  .resume-template .sidebar-section,
+  .resume-template .portfolio-section,
+  .resume-template .minimal-section,
+  .resume-template .onecolumn-section,
+  .resume-template .designer-section,
+  .resume-template .fresher-section,
+  .resume-template .executive-section {
+    page-break-inside: avoid;
+    break-inside: avoid-column;
+  }
+
+  body * {
+    visibility: hidden;
+  }
+
+  #resume-print-root,
+  #resume-print-root * {
+    visibility: visible;
+  }
+
+  #resume-print-root {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
 }
 
 .modern-progress-fill {
@@ -221,94 +349,101 @@
    CLASSIC TEMPLATE 
    ========================================= */
 .classic-template {
-  font-family: 'Times New Roman', Times, serif;
+  font-family: 'Segoe UI', Tahoma, sans-serif;
   color: var(--template-text, #000);
-  padding: 3.5rem;
+  padding: 0.6rem;
 }
 
 .classic-header {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 0.6rem;
+  border-bottom: 1.5px solid var(--template-heading, #000);
+  padding-bottom: 0.4rem;
 }
 
 .classic-name {
-  font-size: 24pt;
-  font-weight: bold;
-  margin: 0 0 0.25rem 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin: 0 0 0.15rem 0;
   text-transform: uppercase;
   color: var(--template-heading, #000);
+  letter-spacing: 0.5px;
 }
 
 .classic-contact-info {
-  font-size: 11pt;
+  font-size: 0.7rem;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .classic-contact-info .separator {
-  margin: 0 0.25rem;
+  margin: 0 0.2rem;
 }
 
 .classic-section {
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.6rem;
 }
 
 .classic-section-title {
-  font-size: 12pt;
-  font-weight: bold;
+  font-size: 0.85rem;
+  font-weight: 700;
   text-transform: uppercase;
   border-bottom: 1px solid var(--template-heading, #000);
-  margin: 0 0 0.5rem 0;
-  padding-bottom: 0.2rem;
+  margin: 0 0 0.35rem 0;
+  padding-bottom: 0.15rem;
   color: var(--template-heading, #000);
+  letter-spacing: 0.3px;
 }
 
 .classic-summary-text {
-  font-size: 11pt;
-  line-height: 1.4;
+  font-size: 0.75rem;
+  line-height: 1.35;
   margin: 0;
 }
 
 .classic-item {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .classic-item-header {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  margin-bottom: 0.25rem;
+  margin-bottom: 0.1rem;
+  gap: 0.5rem;
 }
 
 .classic-item-title {
-  font-size: 12pt;
-  font-weight: bold;
+  font-size: 0.8rem;
+  font-weight: 700;
   margin: 0;
   color: var(--template-heading, #000);
 }
 
 .classic-item-subtitle {
-  font-size: 11pt;
-  font-style: italic;
+  font-size: 0.75rem;
+  font-weight: 600;
   margin: 0;
 }
 
 .classic-item-date {
-  font-size: 11pt;
+  font-size: 0.7rem;
+  color: var(--template-text, #444);
 }
 
 .classic-item-desc {
-  font-size: 11pt;
-  line-height: 1.4;
-  margin: 0.25rem 0 0 0;
+  font-size: 0.73rem;
+  line-height: 1.3;
+  margin: 0.15rem 0 0 0;
+  color: var(--template-text, #333);
 }
 
 .classic-skills-list {
-  font-size: 11pt;
-  line-height: 1.5;
+  font-size: 0.75rem;
+  line-height: 1.4;
 }
 
 /* =========================================
@@ -322,47 +457,47 @@
 
 .ats-header {
   text-align: left;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
   border-bottom: 1px solid var(--accent-line, #000);
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.3rem;
 }
 
 .ats-name {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin: 0 0 0.25rem 0;
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 0.15rem 0;
   text-transform: uppercase;
   color: var(--template-heading, #000);
 }
 
 .ats-contact {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   color: var(--template-text, #333);
 }
 
 .ats-section {
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .ats-heading {
-  font-size: 0.95rem;
-  font-weight: bold;
+  font-size: 0.8rem;
+  font-weight: 700;
   text-transform: uppercase;
-  margin: 0.5rem 0 0.5rem 0;
+  margin: 0.35rem 0 0.35rem 0;
   border-bottom: 1px solid var(--template-text, #ccc);
-  padding-bottom: 0.25rem;
+  padding-bottom: 0.15rem;
   color: var(--template-heading, #000);
 }
 
 .ats-text {
-  font-size: 0.9rem;
-  line-height: 1.5;
-  margin: 0.25rem 0;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  margin: 0.2rem 0;
 }
 
 .ats-skills-text {
-  font-size: 0.9rem;
-  line-height: 1.5;
+  font-size: 0.75rem;
+  line-height: 1.35;
 }
 
 .ats-items {
@@ -370,7 +505,7 @@
 }
 
 .ats-item {
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
 }
 
 .ats-item-header {
@@ -379,17 +514,17 @@
 }
 
 .ats-item-title {
-  font-weight: bold;
-  font-size: 0.95rem;
+  font-weight: 700;
+  font-size: 0.78rem;
 }
 
 .ats-item-date {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   color: var(--template-text, #555);
 }
 
 .ats-company {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   color: var(--brand-secondary, #333);
   margin: 0.1rem 0;
 }
@@ -399,33 +534,33 @@
    ========================================= */
 .sidebar-template {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 2rem;
+  grid-template-columns: 250px 1fr;
+  gap: 1rem;
   color: var(--template-text, #222);
 }
 
 .sidebar-container {
   display: grid;
-  grid-template-columns: 280px 1fr;
-  gap: 2rem;
+  grid-template-columns: 250px 1fr;
+  gap: 1rem;
   width: 100%;
 }
 
 .sidebar-column {
   background: var(--sidebar-bg, #f8f9fa);
-  padding: 1.5rem;
+  padding: 0.85rem;
   border-radius: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.85rem;
 }
 
 .sidebar-profile-image {
   width: 100%;
   aspect-ratio: 1;
-  border-radius: 8px;
+  border-radius: 6px;
   overflow: hidden;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
 }
 
 .sidebar-profile-image img {
@@ -440,30 +575,30 @@
 }
 
 .sidebar-name {
-  font-size: 1.5rem;
+  font-size: 0.95rem;
   font-weight: 700;
   margin: 0;
   color: var(--sidebar-text, var(--template-heading, #111));
 }
 
 .sidebar-contact {
-  font-size: 0.85rem;
-  line-height: 1.6;
+  font-size: 0.7rem;
+  line-height: 1.4;
   color: var(--sidebar-text, var(--template-text, #555));
 }
 
 .sidebar-contact p {
-  margin: 0.25rem 0;
+  margin: 0.15rem 0;
 }
 
 .sidebar-section {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.55rem;
 }
 
 .sidebar-title {
-  font-size: 0.95rem;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--brand-primary, #3b82f6);
   text-transform: uppercase;
@@ -473,22 +608,22 @@
 .sidebar-skills {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 0.35rem;
 }
 
 .sidebar-skill-chip {
   background: var(--brand-primary, #3b82f6);
   color: white;
-  padding: 0.35rem 0.6rem;
+  padding: 0.2rem 0.4rem;
   border-radius: 20px;
-  font-size: 0.8rem;
+  font-size: 0.65rem;
   font-weight: 500;
 }
 
 .sidebar-items {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.55rem;
 }
 
 .sidebar-item {
@@ -497,40 +632,40 @@
 }
 
 .sidebar-item-title {
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   font-weight: 600;
   margin: 0;
   color: var(--sidebar-text, var(--template-heading, #222));
 }
 
 .sidebar-item-subtitle {
-  font-size: 0.85rem;
+  font-size: 0.7rem;
   color: var(--sidebar-text, var(--template-text, #555));
   opacity: 0.9;
-  margin: 0.1rem 0;
+  margin: 0.08rem 0;
 }
 
 .sidebar-item-date {
-  font-size: 0.8rem;
+  font-size: 0.68rem;
   color: var(--sidebar-text, var(--template-text, #777));
   opacity: 0.8;
 }
 
 .sidebar-content {
-  padding: 1rem 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.9rem;
 }
 
 .sidebar-content-section {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.55rem;
 }
 
 .sidebar-content-title {
-  font-size: 1.05rem;
+  font-size: 0.78rem;
   font-weight: 700;
   color: var(--brand-primary, #3b82f6);
   text-transform: uppercase;
@@ -540,15 +675,18 @@
 .sidebar-content-items {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 0.55rem;
 }
 
 .sidebar-content-card {
-  border-left: 3px solid var(--brand-primary, #3b82f6);
-  padding-left: 1rem;
+  border-left: 2px solid var(--brand-primary, #3b82f6);
+  padding-left: 0.6rem;
+  padding-bottom: 0.3rem;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  break-inside: avoid-column;
+  page-break-inside: avoid;
 }
 
 .sidebar-content-card-header {
@@ -558,36 +696,63 @@
 }
 
 .sidebar-content-card-title {
-  font-size: 0.95rem;
+  font-size: 0.75rem;
   font-weight: 600;
   margin: 0;
   color: var(--template-heading, #111);
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .sidebar-content-card-date {
-  font-size: 0.8rem;
+  font-size: 0.68rem;
   color: var(--template-text, #777);
   opacity: 0.8;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .sidebar-content-card-link {
-  font-size: 0.8rem;
+  font-size: 0.68rem;
   color: var(--brand-primary, #3b82f6);
   text-decoration: none;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .sidebar-content-card-subtitle {
-  font-size: 0.9rem;
+  font-size: 0.72rem;
   color: var(--template-text, #555);
   opacity: 0.9;
   margin: 0;
+  overflow-wrap: anywhere;
+  word-break: normal;
 }
 
 .sidebar-content-text {
-  font-size: 0.9rem;
-  line-height: 1.4;
+  font-size: 0.76rem;
+  line-height: 1.45;
   color: var(--template-text, #444);
-  margin: 0;
+  margin: 0.2rem 0 0;
+  display: block;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.sidebar-content-text p {
+  margin: 0.1rem 0;
+  line-height: 1.45;
+}
+
+.sidebar-content-text ul,
+.sidebar-content-text ol {
+  margin: 0.2rem 0 0.2rem 1rem;
+  padding: 0;
+}
+
+.sidebar-content-text li {
+  margin: 0.1rem 0;
+  line-height: 1.45;
 }
 
 /* =========================================
@@ -632,7 +797,7 @@
 }
 
 .creative-name {
-  font-size: 2rem;
+  font-size: 1.35rem;
   font-weight: 700;
   margin: 0;
   color: var(--sidebar-text, white);
@@ -850,7 +1015,7 @@
 }
 
 .fresher-name {
-  font-size: 1.75rem;
+  font-size: 1.35rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
   text-transform: uppercase;
@@ -996,7 +1161,7 @@
 }
 
 .executive-name {
-  font-size: 2.25rem;
+  font-size: 1.45rem;
   font-weight: 700;
   margin: 0 0 0.5rem 0;
   text-transform: uppercase;
@@ -1178,7 +1343,7 @@
   border-bottom: 2px dashed var(--card-highlight, #f3f4f6);
 }
 .designer-name {
-  font-size: 2rem;
+  font-size: 1.4rem;
   font-weight: 800;
   margin: 0;
 }
@@ -1200,7 +1365,7 @@
    ========================================= */
 .onecolumn-template { background: var(--template-bg,#fff); color: var(--template-text,#111827); }
 .onecolumn-header { border-bottom:2px solid var(--accent-line,#e5e7eb); padding-bottom:0.6rem; margin-bottom:0.9rem }
-.onecolumn-name { font-size:1.75rem; font-weight:800; margin:0 }
+.onecolumn-name { font-size:1.35rem; font-weight:800; margin:0 }
 .onecolumn-contact { color:#6b7280; display:flex; gap:0.8rem; margin-top:0.4rem }
 .onecolumn-section { margin-bottom:1rem }
 .onecolumn-section-title { font-weight:700; color:var(--brand-primary,#3b82f6); margin-bottom:0.5rem }
@@ -1228,7 +1393,7 @@
   margin-bottom: 1.5rem;
 }
 .portfolio-name {
-  font-size: 2rem;
+  font-size: 1.45rem;
   font-weight: 800;
   margin: 0;
 }
@@ -1284,7 +1449,7 @@
   margin-bottom: 1rem;
 }
 .minimal-name {
-  font-size: 1.75rem;
+  font-size: 1.35rem;
   font-weight: 700;
   margin: 0 0 0.25rem 0;
 }

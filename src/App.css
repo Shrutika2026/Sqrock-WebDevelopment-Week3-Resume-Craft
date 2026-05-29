@@ -105,13 +105,14 @@
 .main-content {
   display: flex;
   flex: 1;
-  overflow: hidden;
+  overflow: visible;
+  min-height: 0;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   .main-content {
     flex-direction: column;
-    overflow: auto;
+    overflow: visible;
   }
 }
 
@@ -124,7 +125,7 @@
   padding: 2rem;
 }
 
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   .form-section {
     max-width: 100%;
     border-right: none;
@@ -276,7 +277,7 @@
   box-shadow: 0 22px 62px rgba(59, 130, 246, 0.24), 0 0 12px rgba(59, 130, 246, 0.16);
   position: relative;
   z-index: 1;
-  animation: landingButtonPulse 3s ease-in-out infinite;
+  animation: none;
   overflow: hidden;
 }
 

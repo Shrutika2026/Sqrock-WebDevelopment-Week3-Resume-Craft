@@ -34,12 +34,15 @@ function App() {
 
   const { resetSavedData, resumeData } = useResume();
   const [showLanding, setShowLanding] = useState(true);
+  const [resetMessage, setResetMessage] = useState('');
 
   const logoSrc = resumeData?.personalInfo?.siteLogo || '/assets/resume_logo.jpeg';
 
   const handleClearSaved = () => {
     if (window.confirm('Clear saved resume data? This cannot be undone.')) {
       resetSavedData();
+      setResetMessage('Resume reset successfully');
+      window.setTimeout(() => setResetMessage(''), 2200);
     }
   };
 
@@ -115,6 +118,24 @@ function App() {
           <ResumePreview />
         </section>
       </main>
+
+      {resetMessage && (
+        <div style={{
+          position: 'fixed',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          padding: '1rem 1.4rem',
+          backgroundColor: 'rgba(17, 24, 39, 0.95)',
+          color: 'white',
+          borderRadius: '12px',
+          boxShadow: '0 20px 40px rgba(0,0,0,0.25)',
+          zIndex: 9999,
+          textAlign: 'center',
+        }}>
+          {resetMessage}
+        </div>
+      )}
     </div>
   );
 }
