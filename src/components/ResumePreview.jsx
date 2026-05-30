@@ -55,7 +55,32 @@ export default function ResumePreview() {
     }
 
     try {
-      window.print();
+      const printWindow = window.open('', '_blank', 'width=1000,height=800');
+      if (!printWindow) {
+        showToast('Unable to open print preview. Please try again.');
+        return;
+      }
+
+      const printContent = componentRef.current.cloneNode(true);
+      printContent.style.width = '816px';
+      printContent.style.maxWidth = '816px';
+      printContent.style.margin = '0 auto';
+      printContent.style.boxSizing = 'border-box';
+      printContent.style.backgroundColor = resumeData.backgroundColor || '#ffffff';
+
+      printWindow.document.write('<!DOCTYPE html><html><head>');
+      printWindow.document.write(document.head.innerHTML);
+      printWindow.document.write('</head><body style="margin:0; padding:1rem; background:#f0f0f0;">');
+      printWindow.document.body.appendChild(printContent);
+      printWindow.document.write('</body></html>');
+      printWindow.document.close();
+
+      printWindow.focus();
+      printWindow.onload = () => {
+        printWindow.print();
+        setTimeout(() => printWindow.close(), 100);
+      };
+
       showToast('Print preview opened successfully');
     } catch (error) {
       console.error('Print preview error:', error);
@@ -70,11 +95,30 @@ export default function ResumePreview() {
     }
 
     try {
+      // Clone the resume into an offscreen container so html2canvas
+      // can render the full content (not just the visible scrolled area).
       const element = componentRef.current;
-      const canvas = await html2canvas(element, {
-        scale: 2,
+      const clone = element.cloneNode(true);
+      clone.style.width = '816px';
+      clone.style.maxWidth = '816px';
+      clone.style.margin = '0 auto';
+      clone.style.boxSizing = 'border-box';
+      clone.style.backgroundColor = resumeData.backgroundColor || '#ffffff';
+
+      const offScreen = document.createElement('div');
+      offScreen.style.position = 'fixed';
+      offScreen.style.left = '-10000px';
+      offScreen.style.top = '0';
+      offScreen.style.width = '816px';
+      offScreen.style.overflow = 'visible';
+      offScreen.appendChild(clone);
+      document.body.appendChild(offScreen);
+
+      const canvas = await html2canvas(clone, {
+        scale: Math.max(2, window.devicePixelRatio || 2),
         useCORS: true,
         backgroundColor: '#ffffff',
+        scrollY: -window.scrollY,
       });
 
       const imageData = canvas.toDataURL('image/png');
@@ -100,6 +144,13 @@ export default function ResumePreview() {
 
       pdf.save('resume.pdf');
       showToast('Resume downloaded successfully');
+
+      // cleanup offscreen clone
+      try {
+        document.body.removeChild(offScreen);
+      } catch (e) {
+        // ignore
+      }
     } catch (error) {
       console.error('PDF download error:', error);
       showToast('Download failed. Please try again.');

@@ -88,7 +88,23 @@ export const ResumeProvider = ({ children }) => {
       const savedData = localStorage.getItem(STORAGE_KEY);
       if (savedData) {
         try {
-          return JSON.parse(savedData);
+          const parsed = JSON.parse(savedData);
+          const validTemplates = [
+            'modern',
+            'classic',
+            'ats',
+            'creative',
+            'designer',
+            'onecolumn',
+            'portfolio',
+            'minimal',
+            'fresher',
+            'executive',
+          ];
+          if (!validTemplates.includes(parsed.selectedTemplate)) {
+            parsed.selectedTemplate = 'modern';
+          }
+          return parsed;
         } catch (e) {
           console.error('Error parsing resume data', e);
           localStorage.removeItem(STORAGE_KEY);
@@ -509,7 +525,8 @@ export const ResumeProvider = ({ children }) => {
   const setAccentColor = (color) => {
     setResumeData(prev => ({
       ...prev,
-      accentColor: color
+      accentColor: color,
+      accentLineColor: color,
     }));
   };
 
